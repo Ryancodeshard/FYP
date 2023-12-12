@@ -19,7 +19,7 @@ export default function Home() {
       const response = await fetch('/api/event');
       const data = await response.json();
       console.log('All events:', data);
-      setEvent(data[0]['name'])
+      setEvent(data[0].name)
     } catch (error) {
       console.error('Error fetching API:', error);
     }
