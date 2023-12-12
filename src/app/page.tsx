@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function Home() {
-  async function fetchData() {
+  async function FetchInfo() {
     try {
       const response = await fetch('/api/db_info');
       const data = await response.json();
@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <>
       Home
-      <button onClick={()=>fetchData()}>Click me</button>
+      <button onClick={()=>FetchInfo()}>Click me</button>
       <div>
       <button onClick={()=>FetchAllEvents()}>Get all events</button>
       {event}
