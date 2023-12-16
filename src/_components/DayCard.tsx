@@ -6,10 +6,10 @@ import { Card, CardContent, Box, Typography } from "@mui/material";
 
 interface DayCardProps {
     date: Date;
+    height: number;
 }
 const DayCard = (props: DayCardProps) => {
-    const { date } = props;
-
+    const { date, height } = props;
     //Extracts day from date object
     const day = date.getDate();
 
@@ -26,10 +26,13 @@ const DayCard = (props: DayCardProps) => {
                 borderColor: "grey.500",
                 display: "flex",
                 flexDirection: "column",
+                height: `${height}px`,
+                boxShadow: 0,
+                borderRadius: 0,
                 
             }}
         >
-            <CardContent sx={{height: '14.5vh', padding: 0 }}>
+            <CardContent sx={{ padding: 0 }}>
                 <Typography
                     sx={{
                         backgroundColor: sameDayCheck ? "grey.300": "white",
