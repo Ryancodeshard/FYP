@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Home() {
   async function FetchInfo() {
     try {
-      const response = await fetch('/api/db_info');
+      const response = await fetch('/api/db_info'); 
       const data = await response.json();
       console.log('GET request response:', data);
     } catch (error) {
