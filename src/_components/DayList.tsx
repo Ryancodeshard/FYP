@@ -16,7 +16,7 @@ const DayList = (props: CalendarProps) => {
     useEffect(() => {
         const height = window.innerHeight;
         setDayHeight((height-123.2)/numberOfRows);
-    },[dayHeight])
+    })
     useEffect(() => {
         setChecked(isNarrow);
     }, [isNarrow]);
