@@ -6,7 +6,7 @@ import DayCard from "./DayCard";
 interface CalendarProps {
     calendarGridDayObjects: { date: Date; }[];
 }
-const TestDayList = (props: any) => {
+const TestDayList = (props: CalendarProps) => {
     const { calendarGridDayObjects } = props;
     const daysOfWeek = [
         "Sunday",
@@ -20,7 +20,6 @@ const TestDayList = (props: any) => {
     return (
         <Box
             sx={{
-                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 gap: 1,
@@ -35,7 +34,7 @@ const TestDayList = (props: any) => {
                                 color: [6, 0].includes(index) ? "error.main" : "text.primary",
                                 backgroundColor: "background.paper",
                                 padding: "8px 0",
-                                textAlign: "center",
+                                textAlign: "left",
                                 fontWeight: "bold",
                             }}
                         >
@@ -44,7 +43,7 @@ const TestDayList = (props: any) => {
                     </Grid>
                 ))}
             </Grid>
-            <Grid container spacing={2} sx={{ border: "2px solid #d3cdca", height: 700, gridTemplateColumns: "repeat(7, 1fr)" }}>
+            <Grid container>
                 {calendarGridDayObjects.map((day: {date: Date}) => (
                     <Grid key={day.date.toUTCString()} item xs={1.7}>
                         <Box

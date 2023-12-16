@@ -11,8 +11,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 255, 255, 255;
   }
 }
 
@@ -24,4 +24,26 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  margin: 0px;
+}
+
+.MuiPaper-root {
+  border-radius: 0;
+}
+
+.css-mhc70k-MuiGrid-root {
+  margin-left: 0;
+  width: 100%;
+}
+
+.css-1ps6pg7-MuiPaper-root {
+  box-shadow: none;
+}
+
+.css-123l0ck {
+  padding-left: 0px;
+}
+.css-1oqqzyl-MuiContainer-root {
+  min-width: 100%;
+  padding-right: 0px;
 }
