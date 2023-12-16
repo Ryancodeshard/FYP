@@ -22,7 +22,6 @@ const DayCard = (props: DayCardProps) => {
     return (
         <Card
             sx={{
-                backgroundColor: sameDayCheck ? "grey.200" : "white",
                 borderTop: 1,
                 borderColor: "grey.500",
                 display: "flex",
@@ -31,7 +30,13 @@ const DayCard = (props: DayCardProps) => {
             }}
         >
             <CardContent sx={{height: '15.5vh', padding: 0 }}>
-                <Typography sx={{color: sameDayCheck ? "green": "black"}} fontWeight={sameDayCheck ? "bold" : "light"}>
+                <Typography
+                    sx={{
+                        backgroundColor: sameDayCheck ? "grey.300": "white",
+                        paddingTop: '5px'
+                    }}
+                    fontWeight={sameDayCheck ? "bold" : "light"}
+                >
                     {day}
                 </Typography>
             </CardContent>
