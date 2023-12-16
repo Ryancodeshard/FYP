@@ -1,3 +1,8 @@
 {
-  "/calendar/page": "app/calendar/page.js"
+  "/_not-found": "app/_not-found.js",
+  "/api/calendar/route": "app/api/calendar/route.js",
+  "/calendar/page": "app/calendar/page.js",
+  "/api/event/route": "app/api/event/route.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

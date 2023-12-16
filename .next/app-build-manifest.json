@@ -1,15 +1,34 @@
 {
   "pages": {
-    "/calendar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/calendar/page.js"
+    "/_not-found": [
+      "static/chunks/webpack-87e3a37ad7e785b7.js",
+      "static/chunks/fd9d1056-1314696de126ba17.js",
+      "static/chunks/472-19e4f99b5d8c7a6f.js",
+      "static/chunks/main-app-7773610b8568603d.js",
+      "static/chunks/app/_not-found-013b5b0a9c865546.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-87e3a37ad7e785b7.js",
+      "static/chunks/fd9d1056-1314696de126ba17.js",
+      "static/chunks/472-19e4f99b5d8c7a6f.js",
+      "static/chunks/main-app-7773610b8568603d.js",
+      "static/css/20630ab0966fb31a.css",
+      "static/chunks/app/layout-9c1d348551adfd4e.js"
+    ],
+    "/calendar/page": [
+      "static/chunks/webpack-87e3a37ad7e785b7.js",
+      "static/chunks/fd9d1056-1314696de126ba17.js",
+      "static/chunks/472-19e4f99b5d8c7a6f.js",
+      "static/chunks/main-app-7773610b8568603d.js",
+      "static/chunks/784-4c138118e4ebee74.js",
+      "static/chunks/app/calendar/page-fd85de818517b912.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-87e3a37ad7e785b7.js",
+      "static/chunks/fd9d1056-1314696de126ba17.js",
+      "static/chunks/472-19e4f99b5d8c7a6f.js",
+      "static/chunks/main-app-7773610b8568603d.js",
+      "static/chunks/app/page-c3c00f9bd56e8399.js"
     ]
   }
 }
