@@ -22,25 +22,18 @@ const DayCard = (props: DayCardProps) => {
     return (
         <Card
             sx={{
-                backgroundColor: sameDayCheck ? "teal.light" : "white",
+                backgroundColor: sameDayCheck ? "grey.200" : "white",
                 borderTop: 1,
                 borderColor: "grey.500",
                 display: "flex",
                 flexDirection: "column",
+                
             }}
         >
-            <CardContent>
-                <Box
-                    sx={{
-                        padding: "4px 8px",
-                        fontSize: "12px",
-                        fontWeight: "bold",
-                    }}
-                >
-                    <Typography>
-                        {day}
-                    </Typography>
-                </Box>
+            <CardContent sx={{height: '15.5vh', padding: 0 }}>
+                <Typography sx={{color: sameDayCheck ? "green": "black"}} fontWeight={sameDayCheck ? "bold" : "light"}>
+                    {day}
+                </Typography>
             </CardContent>
         </Card>
     )

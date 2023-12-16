@@ -1,15 +1,29 @@
 'use client'
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import DayCard from "./DayCard";
+import { useEffect, useState } from "react";
 
 interface CalendarProps {
     calendarGridDayObjects: { date: Date; }[];
 }
 const TestDayList = (props: CalendarProps) => {
     const { calendarGridDayObjects } = props;
-    const daysOfWeek = [
-        "Sunday",
+    const isNarrow = useMediaQuery("(max-width: 799px");
+    const [checked, setChecked] = useState(false);
+    useEffect(() => {
+        setChecked(isNarrow);
+    }, [isNarrow]);
+
+    const daysOfWeek = checked ? [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+    ] : ["Sunday",
         "Monday",
         "Tuesday",
         "Wednesday",
@@ -26,13 +40,13 @@ const TestDayList = (props: CalendarProps) => {
             }}
         >
             {/* Days of the week */}
-            <Grid container spacing={2}>
+            <Grid container columnSpacing={2} sx={{ width: '100%' }}>
                 {daysOfWeek.map((day, index) => (
                     <Grid key={day} item xs={1.7}>
                         <Typography
                             sx={{
-                                color: [6, 0].includes(index) ? "error.main" : "text.primary",
-                                backgroundColor: "background.paper",
+                                color: [6, 0].includes(index) ? "error.main" : "black",
+                                backgroundColor: "white",
                                 padding: "8px 0",
                                 textAlign: "left",
                                 fontWeight: "bold",
@@ -48,7 +62,7 @@ const TestDayList = (props: CalendarProps) => {
                     <Grid key={day.date.toUTCString()} item xs={1.7}>
                         <Box
                             sx={{
-                                backgroundColor: "background.paper",
+                                backgroundColor: "white",
                                 display: "flex",
                                 flexDirection: "column",
                             }}

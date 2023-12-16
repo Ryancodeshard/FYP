@@ -8,10 +8,8 @@ const CalendarPage = () => {
     const date: DateInfo   = useDate();
 
     return (
-        <Container>
-            <Paper>
-                <Calendar date={date} />
-            </Paper>
+        <Container sx={{ minWidth: '100%', padding: '0px', borderRadius: '0px', minHeight: '100%' }}>
+            <Calendar date={date} />
         </Container>
     )
 }

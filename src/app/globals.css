@@ -29,21 +29,9 @@ body {
 
 .MuiPaper-root {
   border-radius: 0;
-}
-
-.css-mhc70k-MuiGrid-root {
-  margin-left: 0;
-  width: 100%;
-}
-
-.css-1ps6pg7-MuiPaper-root {
   box-shadow: none;
 }
 
-.css-123l0ck {
-  padding-left: 0px;
-}
-.css-1oqqzyl-MuiContainer-root {
-  min-width: 100%;
-  padding-right: 0px;
+.MuiCardContent-root:last-child {
+  padding-bottom: 0px;
 }
