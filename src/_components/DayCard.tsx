@@ -29,7 +29,7 @@ const DayCard = (props: DayCardProps) => {
                 
             }}
         >
-            <CardContent sx={{height: '15.5vh', padding: 0 }}>
+            <CardContent sx={{height: '14.5vh', padding: 0 }}>
                 <Typography
                     sx={{
                         backgroundColor: sameDayCheck ? "grey.300": "white",
