@@ -2,7 +2,7 @@
 
 import { DateInfo } from '../_hooks/useDate'
 import { parse, format, getDate, getDay, subDays, subMonths, startOfMonth, getMonth, addMonths } from 'date-fns';
-import TestDayList from './TestDayList';
+import DayList from './DayList';
 
 interface CalendarProps {
     date: DateInfo;
@@ -67,7 +67,7 @@ export const Calendar = (props: CalendarProps) => {
     const monthDays = [...previousMonthDateObjects, ...days, ...nextMonthDateObjects];
     
     return (
-        <TestDayList calendarGridDayObjects={monthDays} />
+        <DayList calendarGridDayObjects={monthDays} />
     )
 }
 

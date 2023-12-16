@@ -1,7 +1,9 @@
 'use client'
 
 import { DateInfo } from "@/_hooks/useDate";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { Button, Toolbar, Typography } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -21,6 +23,7 @@ const CalendarHeader = (props: CalendarHeaderProps) => {
                     backgroundColor: 'white',
                     borderBottom: 1,
                     borderColor: 'grey.500',
+                    boxShadow: 0,
                 }}
             >
                 <Toolbar>

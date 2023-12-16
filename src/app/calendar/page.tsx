@@ -33,7 +33,6 @@ const CalendarPage = () => {
                         minWidth: '100%',
                         paddingLeft: '10px',
                         borderRadius: '0px',
-                        minHeight: '100%'
                     }}
                 >           
                     <Calendar date={date} />
