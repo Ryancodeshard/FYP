@@ -13,10 +13,24 @@ const DayList = (props: CalendarProps) => {
     const numberOfRows = calendarGridDayObjects.length/7;
     const [dayHeight,setDayHeight] = useState(0);
     const [checked, setChecked] = useState(false);
+    
     useEffect(() => {
-        const height = window.innerHeight;
-        setDayHeight((height-123.2)/numberOfRows);
+        const calculateHeight = () => {
+            const height = window.innerHeight;
+            setDayHeight((height - 123.2) / numberOfRows);
+        };
+
+        calculateHeight();
+
+        // Add event listener for window resize
+        window.addEventListener("resize", calculateHeight);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener("resize", calculateHeight);
+        };
     },[numberOfRows]);
+
     useEffect(() => {
         setChecked(isNarrow);
     }, [isNarrow]);
