@@ -1,10 +1,12 @@
 'use client'
 
+import LoginBox from "@/_components/Login";
 import { useState } from "react";
+
 export default function Home() {
   async function FetchInfo() {
     try {
-      const response = await fetch('/api/db_info'); 
+      const response = await fetch('/api/db_info');
       const data = await response.json();
       console.log('GET request response:', data);
     } catch (error) {
@@ -25,12 +27,13 @@ export default function Home() {
   }
   return (
     <>
-      Home
+      {/* Home
       <button onClick={()=>FetchInfo()}>Click me</button>
       <div>
       <button onClick={()=>FetchAllEvents()}>Get all events</button>
       {event}
-      </div>
+      </div> */}
+      <LoginBox/>
     </>
   )
 }
