@@ -22,16 +22,29 @@ const EventModal = (props: EventModalProps) => {
     const [eventData, setEventData] = useState<EventModel>(EventModel.getInitialEventValues());
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [eventTitle, setEventTitle] = useState(eventData.title);
+    const [startTime, setStartTime] = useState<Date>(add(startOfHour(date), { hours: 1 }));
     
     /*TO-DO: Create a new useEffect to replace the data with actual data if eventData.id != -1 */
     useEffect(() => {
         eventData.startDate = date;
         eventData.endDate = date;
-        eventData.startTime = add(startOfHour(date), { hours: 1 });
-        eventData.endTime = add(startOfHour(date), { hours: 2 });
     },[date])
 
+    useEffect(() => {
+        eventData.startTime = startTime;
+        eventData.endTime = add(startOfHour(date), { hours: 2 });
+    }, [])
+
+    useEffect(() => {
+        if(startTime >= formik.values.endTime){
+            formik.setFieldValue('endTime', add(startTime, { hours: 1 }));
+        }
+    }, [startTime])
+    
+    
+
     const initialDate = startOfDay(date);
+
     /*TO-DO: change validateOnBlur and validateOnChange */
     const formik = useFormik({
         initialValues: eventData,
@@ -53,7 +66,8 @@ const EventModal = (props: EventModalProps) => {
         validateOnBlur: true,
         validateOnChange: true,
     })
-    console.log(formik.values.allDay);
+
+    /*TO-DO: Make the modal draggable*/
     return (
         <div style={{top: '0',left: '0', zIndex: 1030, borderRadius: '8px', width: '95vw'}}>
             <div style={popUpBoxStyle.validationBox as React.CSSProperties}>
@@ -80,10 +94,17 @@ const EventModal = (props: EventModalProps) => {
                                     }}
                                     sx={{ width: '150px'}}
                                 />
+                                {/*TO-DO: decide whether we want to disable the save button when there is an error, or show the error? if we want
+                                    to show the error, we need to add a new text box for the time, but if we weant to just disable the save button,
+                                    we need to find a way to highlight the textbox
+                                 */}
                                 {!formik.values.allDay && (
                                     <TimePicker
                                         value={formik.values.startTime}
-                                        onChange={(newValue) => formik.setFieldValue("startTime", newValue)}
+                                        onChange={(newValue) => {
+                                            setStartTime(newValue);
+                                            formik.setFieldValue("startTime", newValue);
+                                        }}
                                         referenceDate={formik.values.startTime}
                                         sx={{ width: '140px'}}
                                     />
@@ -107,14 +128,14 @@ const EventModal = (props: EventModalProps) => {
                                 )}
                             </Grid>
                         </LocalizationProvider>
-                        <FormHelperText sx={{color: 'red',width: '100%'}}>{formik.errors.startDate ? String(formik.errors.startDate) : ""}</FormHelperText>
+                        <FormHelperText sx={{color: 'red',width: '100%'}}>{formik.errors.endDate ? String(formik.errors.endDate) : ""}</FormHelperText>
                     </Grid>
                     <FormGroup itemType="button">
                         <FormControlLabel
                             control={
                                 <Checkbox
                                     name="allDay"
-                                    defaultChecked={formik.values.allDay}
+                                    checked={formik.values.allDay}
                                     onChange={(event) => formik.setFieldValue("allDay", event.target.checked)}
                                 />
                             }
