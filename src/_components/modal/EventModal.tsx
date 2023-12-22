@@ -12,6 +12,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { add, startOfDay, startOfHour } from "date-fns";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import NotesIcon from '@mui/icons-material/Notes';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 
 interface EventModalProps {
     date: Date;
@@ -23,7 +26,11 @@ const EventModal = (props: EventModalProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [eventTitle, setEventTitle] = useState(eventData.title);
     const [startTime, setStartTime] = useState<Date>(add(startOfHour(date), { hours: 1 }));
-    
+    const [startDateOpen, setStartDateOpen] = useState(false);
+    const [endDateOpen, setEndDateOpen] = useState(false);
+    const [startTimeOpen, setStartTimeOpen] = useState(false);
+    const [endTimeOpen, setEndTimeOpen] = useState(false);
+
     /*TO-DO: Create a new useEffect to replace the data with actual data if eventData.id != -1 */
     useEffect(() => {
         eventData.startDate = date;
@@ -81,21 +88,38 @@ const EventModal = (props: EventModalProps) => {
                         onChange={formik.handleChange}
                         error={Boolean(formik.errors.title && formik.touched.title)}
                         helperText={formik.errors.title && formik.touched.title ? String(formik.errors.title) : undefined}
+                        sx={{ paddingBottom: '10px' }}
                     />
                     <Grid container sx={{width: '100%', justifyContent: 'left'}}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <Grid item>
+                            <Grid item sx={{ display: 'flex' }}>
+                                <AccessTimeIcon sx={{ color: 'black', fontSize: '30px', alignSelf: 'center', paddingRight: '10px' }}/>
                                 <DatePicker
                                     name="startDate"
                                     defaultValue={initialDate}
                                     format="dd-MM-yyyy"
                                     onChange={(newDate) => {
-                                        formik.setFieldValue("startDate",newDate)
+                                        formik.setFieldValue("startDate",newDate);
                                     }}
-                                    sx={{ width: '150px'}}
+                                    open={startDateOpen}
+                                    onClose={() => setStartDateOpen(false)}
+                                    sx={{
+                                        width: '115px',
+                                        '& .MuiInputAdornment-root': {
+                                            display: 'none',
+                                        },
+                                    }}
+                                    slotProps={{
+                                        textField: {
+                                            onClick: () => {
+                                                setStartDateOpen(true);
+                                                setEndDateOpen(false);
+                                            }
+                                        }
+                                    }}
                                 />
                                 {/*TO-DO: decide whether we want to disable the save button when there is an error, or show the error? if we want
-                                    to show the error, we need to add a new text box for the time, but if we weant to just disable the save button,
+                                    to show the error, we need to add a new text box for the time, but if we want to just disable the save button,
                                     we need to find a way to highlight the textbox
                                  */}
                                 {!formik.values.allDay && (
@@ -106,24 +130,80 @@ const EventModal = (props: EventModalProps) => {
                                             formik.setFieldValue("startTime", newValue);
                                         }}
                                         referenceDate={formik.values.startTime}
-                                        sx={{ width: '140px'}}
+                                        open={startTimeOpen}
+                                        onClose={() => setStartTimeOpen(false)}
+                                        sx={{
+                                            width: '100px',
+                                            paddingLeft: '5px',
+                                            '& .MuiInputAdornment-root': {
+                                                display: 'none',
+                                            },
+                                        }}
+                                        slotProps={{
+                                            textField: {
+                                                onClick: () => {
+                                                    setEndTimeOpen(false);
+                                                    setStartTimeOpen(true);
+                                                }
+                                            }
+                                        }}
                                     />
                                 )}
                             </Grid>
+                            <HorizontalRuleIcon
+                                sx={{
+                                    color: 'black',
+                                    width: '10px',
+                                    alignSelf: 'center',
+                                    paddingLeft: '5px',
+                                    paddingRight: '5px'
+                                }}
+                            />
                             <Grid item>
                                 <DatePicker
                                     name="endDate"
                                     defaultValue={initialDate}
                                     format="dd-MM-yyyy"
                                     onChange={(newDate) => formik.setFieldValue("endDate",newDate)}
-                                    sx={{ width: '150px'}}
+                                    open={endDateOpen}
+                                    onClose={() => setEndDateOpen(false)}
+                                    sx={{
+                                        width: '115px',
+                                        paddingRight: '5px',
+                                        '& .MuiInputAdornment-root': {
+                                            display: 'none',
+                                        },
+                                    }}
+                                    slotProps={{
+                                        textField: {
+                                            onClick: () => {
+                                                setEndDateOpen(true);
+                                                setStartDateOpen(false);
+                                            }
+                                        }
+                                    }}
                                 />
                                 {!formik.values.allDay && (
                                     <TimePicker
                                         value={formik.values.endTime}
                                         onChange={(newValue) => formik.setFieldValue("endTime", newValue)}
                                         referenceDate={formik.values.endTime}
-                                        sx={{ width: '140px'}}
+                                        open={endTimeOpen}
+                                        onClose={ () => setEndTimeOpen(false)} 
+                                        sx={{
+                                            width: '100px',
+                                            '& .MuiInputAdornment-root': {
+                                                display: 'none',
+                                            },
+                                        }}
+                                        slotProps={{
+                                            textField: {
+                                                onClick: () => {
+                                                    setEndTimeOpen(true);
+                                                    setStartTimeOpen(false);
+                                                }
+                                            }
+                                        }}
                                     />
                                 )}
                             </Grid>
@@ -140,17 +220,22 @@ const EventModal = (props: EventModalProps) => {
                                 />
                             }
                             label="All Day"
-                            sx={{ width: '30%', color: 'black'}}
+                            sx={{ width: '30%', color: 'black', paddingLeft: '40px'}}
                         />
                     </FormGroup>
-                    <TextField
-                        fullWidth
-                        id="notes"
-                        name="notes"
-                        label="Description"
-                        value={formik.values.notes}
-                        onChange={formik.handleChange}
-                    />
+                    <Grid item sx={{ display: 'flex' }}>
+                        <NotesIcon sx={{ color: 'black', fontSize: '30px', alignSelf: 'center', paddingRight: '10px' }}/>
+                        <TextField
+                            fullWidth
+                            id="notes"
+                            name="notes"
+                            label="Description"
+                            value={formik.values.notes}
+                            onChange={formik.handleChange}
+                            sx={{ paddingBottom: '10px' }}
+                        />
+                    </Grid>
+                    
                     <Button color="primary" variant="contained" fullWidth type="submit">
                         Submit
                     </Button>

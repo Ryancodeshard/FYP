@@ -34,6 +34,6 @@ export class EventModel {
         const date = startOfDay(new Date());
         const startTime = add(startOfHour(date), { hours: 1 });
         const endTime = add(startOfHour(date), { hours: 2 });
-        return new EventModel(-1, '', date, date, true, startTime, endTime, '');
+        return new EventModel(-1, '', date, date, false, startTime, endTime, '');
     }
 }
