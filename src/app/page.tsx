@@ -33,9 +33,7 @@ export default function Home() {
       <Typography>Home</Typography>
       <button onClick={() => FetchInfo()}>Click me</button>
       <Box>
-        {/* <button onClick={() => FetchAllEvents((setEvent = setEvent))}>
-          Get all events
-        </button> */}
+        <button onClick={() => FetchAllEvents(setEvent)}>Get all events</button>
         {event}
       </Box>
       {/* <LoginBox/> */}
