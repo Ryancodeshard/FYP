@@ -26,7 +26,6 @@ const EventModal = (props: EventModalProps) => {
     const { date, handleModalClose } = props;
     const [eventData, setEventData] = useState<EventModel>(EventModel.getInitialEventValues());
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [eventTitle, setEventTitle] = useState(eventData.title);
     const [startTime, setStartTime] = useState<Date>(add(startOfHour(date), { hours: 1 }));
     const [startDateOpen, setStartDateOpen] = useState(false);
     const [endDateOpen, setEndDateOpen] = useState(false);
@@ -62,7 +61,7 @@ const EventModal = (props: EventModalProps) => {
             setIsSubmitting(true);
             const wrappedValues = {
                 id: eventData.ID,
-                title: eventTitle,
+                title: values.title,
                 startDate: values.startDate,
                 endDate: values.endDate,
                 allDay: values.allDay,
