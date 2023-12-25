@@ -167,29 +167,6 @@ const EventModal = (props: EventModalProps) => {
                                 }}
                             />
                             <Grid item>
-                                <DatePicker
-                                    name="endDate"
-                                    defaultValue={initialDate}
-                                    format="dd-MM-yyyy"
-                                    onChange={(newDate) => formik.setFieldValue("endDate",newDate)}
-                                    open={endDateOpen}
-                                    onClose={() => setEndDateOpen(false)}
-                                    sx={{
-                                        width: '115px',
-                                        paddingRight: '5px',
-                                        '& .MuiInputAdornment-root': {
-                                            display: 'none',
-                                        },
-                                    }}
-                                    slotProps={{
-                                        textField: {
-                                            onClick: () => {
-                                                setEndDateOpen(true);
-                                                setStartDateOpen(false);
-                                            }
-                                        }
-                                    }}
-                                />
                                 {!formik.values.allDay && (
                                     <TimePicker
                                         value={formik.values.endTime}
@@ -213,6 +190,29 @@ const EventModal = (props: EventModalProps) => {
                                         }}
                                     />
                                 )}
+                                <DatePicker
+                                    name="endDate"
+                                    defaultValue={initialDate}
+                                    format="dd-MM-yyyy"
+                                    onChange={(newDate) => formik.setFieldValue("endDate",newDate)}
+                                    open={endDateOpen}
+                                    onClose={() => setEndDateOpen(false)}
+                                    sx={{
+                                        width: '115px',
+                                        paddingRight: '5px',
+                                        '& .MuiInputAdornment-root': {
+                                            display: 'none',
+                                        },
+                                    }}
+                                    slotProps={{
+                                        textField: {
+                                            onClick: () => {
+                                                setEndDateOpen(true);
+                                                setStartDateOpen(false);
+                                            }
+                                        }
+                                    }}
+                                />
                             </Grid>
                         </LocalizationProvider>
                         <FormHelperText sx={{color: 'red',width: '100%'}}>{formik.errors.endDate ? String(formik.errors.endDate) : ""}</FormHelperText>
