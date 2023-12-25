@@ -6,7 +6,7 @@ import { FormikValues, useFormik } from "formik";
 
 import { eventModelValidationSchema } from "../_models/eventModelValidator";
 import { EventModel } from "../_models/EventModel";
-import { Button, Checkbox, FormControlLabel, FormGroup, FormHelperText, Grid, TextField, Typography, } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup, FormHelperText, Grid, TextField, IconButton } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -15,13 +15,15 @@ import { add, startOfDay, startOfHour } from "date-fns";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import NotesIcon from '@mui/icons-material/Notes';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface EventModalProps {
     date: Date;
+    handleModalClose: any;
 }
 
 const EventModal = (props: EventModalProps) => {
-    const { date } = props;
+    const { date, handleModalClose } = props;
     const [eventData, setEventData] = useState<EventModel>(EventModel.getInitialEventValues());
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [eventTitle, setEventTitle] = useState(eventData.title);
@@ -77,7 +79,12 @@ const EventModal = (props: EventModalProps) => {
     /*TO-DO: Make the modal draggable*/
     return (
         <div style={{top: '0',left: '0', zIndex: 1030, borderRadius: '8px', width: '95vw'}}>
-            <div style={popUpBoxStyle.validationBox as React.CSSProperties}>
+            <div style={ popUpBoxStyle.validationBox as React.CSSProperties }>
+                <div style={ popUpBoxStyle.closeIcon as React.CSSProperties }>
+                    <IconButton sx={{ paddingBottom: '5px', paddingTop: 0, paddingRight: 0, paddingLeft: 0 }} onClick={handleModalClose}>
+                        <CloseIcon sx={{ color: 'black' }} />
+                    </IconButton>
+                </div>
                 <form onSubmit={formik.handleSubmit}>
                     <TextField
                         fullWidth

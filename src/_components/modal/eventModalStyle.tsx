@@ -18,7 +18,7 @@ const popUpBoxStyle = {
         minHeight: 'fit-content',
         background: '#fff',
         borderRadius: '4px',
-        padding: '20px',
+        padding: '10px',
         border: '1px solid #999',
         overflow: 'auto',
         top: '50%',
@@ -26,6 +26,11 @@ const popUpBoxStyle = {
         boxShadow: '0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12), 0 11px 15px -7px rgba(0,0,0,.2)',
         transform: 'translate(-50%,-50%)',
     },
+
+    closeIcon: {
+        display: 'flex',
+        justifyContent: 'flex-end'
+    }
 }
 
 export default popUpBoxStyle;

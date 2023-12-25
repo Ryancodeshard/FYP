@@ -61,6 +61,10 @@ const DayCard = (props: DayCardProps) => {
         setIsModalOpen(true);
     }
 
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    }
+
     return (
         <>
             <Card
@@ -89,7 +93,7 @@ const DayCard = (props: DayCardProps) => {
                 </CardActionArea>
             </Card>
             {isModalOpen && (
-                <EventModal date={date}/>
+                <EventModal date={date} handleModalClose={handleModalClose} />
             )}
         </>
         
