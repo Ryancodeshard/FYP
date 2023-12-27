@@ -59,7 +59,7 @@ export default function LoginBox() {
           </form>
           or
           <div>
-            <button type="button" onClick={() => signIn("googleoauth")}>
+            <button type="button" onClick={() => signIn("google")}>
               Sign in with Google
             </button>
           </div>

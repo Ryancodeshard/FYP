@@ -26,11 +26,14 @@ table( calendar ) {
 }
 table( event ) {
   primary_key( id ): UUID
-  column( name ): TEXT NOT NULL 
+  column( title ): TEXT NOT NULL
+  column( start_datetime ): DATETIME NOT NULL
+  column( end_datetime ): DATETIME NOT NULL
   foreign_key( calendar_id ): INTEGER NOT NULL
   foreign_key( creator_id ): INTEGER NOT NULL
 }
 event }o--|| user : creator_id
 event }o--|| calendar: calendar_id
-calendar }o--|| user: creator_id 
+calendar }o--|| user: creator_id
+user }o--o{ user : parent 
 @enduml

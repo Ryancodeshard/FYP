@@ -30,13 +30,13 @@ export default function Home() {
 
   return (
     <Box>
-      <Typography>Home</Typography>
+      {/* <Typography>Home</Typography>
       <button onClick={() => FetchInfo()}>Click me</button>
       <Box>
         <button onClick={() => FetchAllEvents(setEvent)}>Get all events</button>
         {event}
-      </Box>
-      {/* <LoginBox/> */}
+      </Box> */}
+      <LoginBox />
     </Box>
   );
 }

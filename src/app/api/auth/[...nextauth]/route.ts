@@ -27,7 +27,7 @@ const authOptions: NextAuthOptions = {
       }
     }),
     GoogleProvider({
-      id: 'googleoauth',
+      // id: 'googleoauth',
       clientId: process.env.GOOGLE_ID || '',
       clientSecret: process.env.GOOGLE_SECRET || '',
     })

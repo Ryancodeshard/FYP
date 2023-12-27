@@ -8,10 +8,8 @@ const protectedPages = ['/protected_pages'];
 const protectedApis = ['/api/'];
 
 export const middleware = async (req: NextRequest) => {
-  console.log("middle the ware")
   const token = await getToken({ req });
-  console.log('token', token);
-
+  console.log('token: ', token);
   if (protectedPages.includes(req.nextUrl.pathname) && !token) {
     return NextResponse.redirect(new URL('/', req.nextUrl.origin));
   }
