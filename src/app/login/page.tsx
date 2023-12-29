@@ -2,13 +2,14 @@
 
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { GAuthButton } from "@/_components/AuthBox";
 
 interface FormFields {
   username: HTMLInputElement;
   password: HTMLInputElement;
 }
 
-export default function LoginBox() {
+const Login = () => {
   const { data } = useSession();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,11 +59,7 @@ export default function LoginBox() {
             </p>
           </form>
           or
-          <div>
-            <button type="button" onClick={() => signIn("google")}>
-              Sign in with Google
-            </button>
-          </div>
+          <GAuthButton />
         </>
       )}
       {data?.user && (
@@ -75,4 +72,6 @@ export default function LoginBox() {
       )}
     </>
   );
-}
+};
+
+export default Login;
