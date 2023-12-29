@@ -1,6 +1,5 @@
 "use client";
 
-import LoginBox from "@/_components/Login";
 import { Box, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -30,13 +29,12 @@ export default function Home() {
 
   return (
     <Box>
-      {/* <Typography>Home</Typography>
+      <Typography>Home</Typography>
       <button onClick={() => FetchInfo()}>Click me</button>
       <Box>
         <button onClick={() => FetchAllEvents(setEvent)}>Get all events</button>
         {event}
-      </Box> */}
-      <LoginBox />
+      </Box>
     </Box>
   );
 }
