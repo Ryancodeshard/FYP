@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 
 export { default } from "next-auth/middleware"
 
-const safePages = ['/','/login'];
+const protectedPages = ['/calendar'];
 const protectedApis = ['/api/'];
 
 export const middleware = async (req: NextRequest) => {
@@ -16,7 +16,7 @@ export const middleware = async (req: NextRequest) => {
     return NextResponse.rewrite(new URL('/api/unauthorised', req.nextUrl.origin));
   }
 
-  if (!safePages.includes(req.nextUrl.pathname) && !token) {
+  if (protectedPages.includes(req.nextUrl.pathname) && !token) {
     return NextResponse.redirect(new URL('/', req.nextUrl.origin));
   }
 
