@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import popUpBoxStyle from "./eventModalStyle";
 import { FormikValues, useFormik } from "formik";
 
-import { eventModelValidationSchema } from "../_models/eventModelValidator";
-import { EventModel } from "../_models/EventModel";
+import { eventModelValidationSchema } from "@/app/interfaces/eventModelValidator";
+import { EventModel } from "../../app/interfaces/EventModel";
 import {
   Button,
   Checkbox,
