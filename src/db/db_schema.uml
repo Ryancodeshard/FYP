@@ -1,8 +1,6 @@
 @startuml
 skinparam roundcorner 5
 skinparam linetype ortho
-skinparam shadowing false
-skinparam handwritten false
 skinparam class {
     BackgroundColor white
     ArrowColor #2688d4
@@ -16,7 +14,7 @@ skinparam class {
 
 table( user ) {
   primary_key( id ): UUID
-  column( isActive ): BOOLEAN
+  column( is_active ): BOOLEAN
 }
 table( calendar ) {
   primary_key( id ): UUID
@@ -24,9 +22,21 @@ table( calendar ) {
   column( organiser ): TEXT NOT NULL
   column( creator_id ): INTEGER NOT NULL
 }
+table( parent_to_calendar ) {
+  primary_key( id ): UUID
+  foreign_key( parent_id ): INTEGER
+  foreign_key( calendar_id ): INTEGER 
+}
+table( child_to_calendar ) {
+  primary_key( id ): UUID
+  foreign_key( child_id ): INTEGER
+  foreign_key( calendar_id ): INTEGER 
+}
 table( event ) {
   primary_key( id ): UUID
   column( title ): TEXT NOT NULL
+  column( all_day ): BOOLEAN NOT NULL
+  column( notes ): TEXT
   column( start_datetime ): DATETIME NOT NULL
   column( end_datetime ): DATETIME NOT NULL
   foreign_key( calendar_id ): INTEGER NOT NULL
@@ -35,5 +45,7 @@ table( event ) {
 event }o--|| user : creator_id
 event }o--|| calendar: calendar_id
 calendar }o--|| user: creator_id
-user }o--o{ user : parent 
+calendar }|--|{ user: parent_id
+calendar }|--|{ user: child_id
+
 @enduml

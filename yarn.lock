@@ -2122,6 +2122,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/esm@npm:^3":
+  version: 3.2.2
+  resolution: "@types/esm@npm:3.2.2"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 4285ec39ab1d4b674145415f0a74badc6231452f1ae9a36df05d2f6f8f25256ceb4d3e1efca6812533cee68349d57fe5b1bf2d29c4519c095dc226b34ad9370a
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:0.0.39":
   version: 0.0.39
   resolution: "@types/estree@npm:0.0.39"
@@ -3583,6 +3592,13 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: d28c0b60f19bb7d355cb8393e77b018c8f548dba3f820b799c89bb2e0c436ee26084e700c5e57e1e97e7972ec93065277849141b82e7b0c0d02c2dc1e553a2a1
+  languageName: node
+  linkType: hard
+
+"esm@npm:^3.2.25":
+  version: 3.2.25
+  resolution: "esm@npm:3.2.25"
+  checksum: 8e60e8075506a7ce28681c30c8f54623fe18a251c364cd481d86719fc77f58aa055b293d80632d9686d5408aaf865ffa434897dc9fd9153c8b3f469fad23f094
   languageName: node
   linkType: hard
 
@@ -5921,6 +5937,7 @@ __metadata:
     "@mui/material": "npm:^5.15.0"
     "@mui/system": "npm:^5.15.0"
     "@mui/x-date-pickers": "npm:^6.18.5"
+    "@types/esm": "npm:^3"
     "@types/node": "npm:^20"
     "@types/pg": "npm:^8"
     "@types/react": "npm:^18.2.42"
@@ -5929,6 +5946,7 @@ __metadata:
     date-fns: "npm:^2.30.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.0.3"
+    esm: "npm:^3.2.25"
     formik: "npm:^2.4.5"
     next: "npm:14.0.3"
     next-auth: "npm:^4.24.5"
