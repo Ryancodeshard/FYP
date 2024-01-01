@@ -70,8 +70,9 @@ const LoginModal = () => {
   }, [data]);
 
   useEffect(() => {
-    if (invite_code && !data) setOpen(true);
-    else if (invite_code) add_new_calendar_user(invite_code);
+    if (!invite_code) return;
+    if (!data) setOpen(true);
+    else add_new_calendar_user(invite_code);
   }, [data, invite_code]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
