@@ -1,8 +1,13 @@
 import { QueryResult } from 'pg'
 import handler from '../db_handler'
+import { CAL_USER_TYPE } from './models'
 
 const get_all_calendars = () : Promise<QueryResult<any>>=> {
   return handler("SELECT * FROM calendar")
 }
 
-export {get_all_calendars}
+const add_calendar_user = ( user_type: CAL_USER_TYPE, user_id: number, calendar_id: number ) : Promise<QueryResult<any>>=>{
+  return handler(`INSERT INTO ${user_type}(fk_parent_id, fk_calendar_id) VALUES (${user_id}, ${calendar_id})`)
+}
+
+export {get_all_calendars, add_calendar_user}
