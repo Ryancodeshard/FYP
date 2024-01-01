@@ -13,5 +13,6 @@ export async function POST(request: Request){
 export async function GET(request: Request){
   const email: string = await request.text()
   const responseBody = await get_user(email)
-  return NextResponse.json(responseBody || {});
+  const user: User = {id:responseBody.rows[0].id, email:responseBody.rows[0].email}
+  return NextResponse.json(user || {});
 }

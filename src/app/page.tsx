@@ -2,7 +2,6 @@
 
 import { Box, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
-
 async function FetchAllEvents(setEvent: Dispatch<SetStateAction<any>>) {
   try {
     const response = await fetch("/api/event");

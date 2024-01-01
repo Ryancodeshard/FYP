@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Box, Button, Modal } from "@mui/material";
+import { useSearchParams, redirect } from "next/navigation";
+import { User } from "@/app/interfaces/User";
 
 interface FormFields {
   username: HTMLInputElement;
@@ -30,7 +32,7 @@ const style = {
   p: 4,
 };
 
-const new_user = async (email: string) => {
+const create_new_user = async (email: string) => {
   await fetch("/api/user", {
     method: "POST",
     body: JSON.stringify({
@@ -39,15 +41,38 @@ const new_user = async (email: string) => {
   });
 };
 
+const add_new_calendar_user = async (invite_code: string) => {
+  const response = await fetch("/api/user");
+  const user: User = await response.json();
+  const [calendar_id, user_type] = btoa(invite_code).split("_");
+  await fetch("/api/calendar/new_user", {
+    method: "POST",
+    body: JSON.stringify({
+      user_type: user_type,
+      user_id: user.id,
+      calendar_id: calendar_id,
+    }),
+  });
+  redirect(`/calendar/${calendar_id}`);
+};
+
 const LoginModal = () => {
   const { data } = useSession();
   const [open, setOpen] = useState(false);
 
+  const searchParams = useSearchParams();
+
+  const invite_code = searchParams.get("invite_code");
+
   useEffect(() => {
     const user = fetch("/api/user");
-    if (data && data.user && data.user.email && !user)
-      new_user(data.user.email);
+    if (data?.user?.email && !user) create_new_user(data.user.email);
   }, [data]);
+
+  useEffect(() => {
+    if (invite_code && !data) setOpen(true);
+    else if (invite_code) add_new_calendar_user(invite_code);
+  }, [data, invite_code]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
