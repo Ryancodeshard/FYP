@@ -9,8 +9,6 @@ const protectedApis = ['/api/'];
 
 export const middleware = async (req: NextRequest) => {
   const token = await getToken({ req });
-  // console.log('token: ', token);
-  
 
   if (protectedApis.includes(req.nextUrl.pathname) && !token) {
     return NextResponse.rewrite(new URL('/api/unauthorised', req.nextUrl.origin));

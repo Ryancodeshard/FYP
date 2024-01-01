@@ -9,7 +9,6 @@ export default async function handler(req: string):Promise<QueryResult<any>> {
   const client = await pool.connect();
   try {
     const response = await client.query(req);
-    console.log(response.rows[0]);
     return response
   } finally {
     client.release();
