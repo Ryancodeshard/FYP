@@ -18,8 +18,7 @@ table( user ) {
 }
 table( calendar ) {
   primary_key( id ): UUID
-  column( name ): TEXT NOT NULL 
-  column( organiser ): TEXT NOT NULL
+  column( name ): TEXT NOT NULL
   column( creator_id ): INTEGER NOT NULL
 }
 table( parent_to_calendar ) {

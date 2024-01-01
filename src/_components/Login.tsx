@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Box, Button, Modal } from "@mui/material";
@@ -30,10 +30,24 @@ const style = {
   p: 4,
 };
 
+const new_user = async (email: string) => {
+  await fetch("/api/user", {
+    method: "POST",
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+};
+
 const LoginModal = () => {
   const { data } = useSession();
-
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const user = fetch("/api/user");
+    if (data && data.user && data.user.email && !user)
+      new_user(data.user.email);
+  }, [data]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
