@@ -1,9 +1,9 @@
 "use client";
 
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import { useSearchParams, redirect } from "next/navigation";
 import { User } from "@/app/interfaces/User";
 
@@ -13,11 +13,7 @@ interface FormFields {
 }
 
 const GAuthButton = () => {
-  return (
-    <button type="button" onClick={() => signIn("google")}>
-      Sign in with Google
-    </button>
-  );
+  return <Button onClick={() => signIn("google")}>Sign in with Google</Button>;
 };
 
 const style = {
@@ -44,7 +40,7 @@ const create_new_user = async (email: string) => {
 const add_new_calendar_user = async (invite_code: string) => {
   const response = await fetch("/api/user");
   const user: User = await response.json();
-  const [calendar_id, user_type] = btoa(invite_code).split("_");
+  const [calendar_id, user_type] = atob(invite_code).split("_");
   await fetch("/api/calendar/new_user", {
     method: "POST",
     body: JSON.stringify({
@@ -91,13 +87,14 @@ const LoginModal = () => {
     <>
       {!data?.user ? (
         <>
-          <button onClick={() => setOpen(true)}>Log in</button>
-          <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+          <Button
+            variant="outlined"
+            sx={{ color: "white" }}
+            onClick={() => setOpen(true)}
           >
+            Log in
+          </Button>
+          <Modal open={open} onClose={() => setOpen(false)}>
             <Box sx={style}>
               <h1 style={{ color: "black" }}>Sign in to your account</h1>
               <form onSubmit={onSubmit}>
@@ -124,7 +121,7 @@ const LoginModal = () => {
                 <div className="flex items-center justify-between">
                   <a href="#">Forgot password?</a>
                 </div>
-                <button type="submit">Sign in</button>
+                <Button type="submit">Sign in</Button>
                 <p>
                   Don’t have an account yet? <a href="#">Sign up</a>
                 </p>
@@ -135,12 +132,14 @@ const LoginModal = () => {
           </Modal>
         </>
       ) : (
-        <div>
-          Signed in as {data?.user?.name}
-          <button type="button" onClick={() => signOut()}>
+        <>
+          <Typography sx={{ color: "black" }}>
+            Signed in as {data?.user?.name}
+          </Typography>
+          <Button variant="outlined" onClick={() => signOut()}>
             Sign Out
-          </button>
-        </div>
+          </Button>
+        </>
       )}
     </>
   );
