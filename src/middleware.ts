@@ -13,10 +13,10 @@ export const middleware = async (req: NextRequest) => {
   if (protectedApis.includes(req.nextUrl.pathname) && !token) {
     return NextResponse.rewrite(new URL('/api/unauthorised', req.nextUrl.origin));
   }
-
-  if (protectedPages.includes(req.nextUrl.pathname) && !token) {
-    return NextResponse.redirect(new URL('/', req.nextUrl.origin));
-  }
+  
+  let protected_page = false
+  protectedPages.forEach((item)=>{protected_page=protected_page||req.nextUrl.pathname.includes(item)})
+  if (protected_page && !token) return NextResponse.redirect(new URL('/', req.nextUrl.origin));
 
   return NextResponse.next();
 };

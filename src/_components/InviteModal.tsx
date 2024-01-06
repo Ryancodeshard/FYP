@@ -18,7 +18,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 450,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -36,7 +36,7 @@ const InviteLink = ({ userType }: { userType: CalendarUserType }) => {
   const invite_link = `${hostname}?invite_code=${btoa(userType + "_" + id)}`;
 
   return (
-    <Box sx={style}>
+    <Box sx={{ display: "flex", padding: "10px" }}>
       <TextField
         InputProps={{
           readOnly: true,
@@ -44,12 +44,13 @@ const InviteLink = ({ userType }: { userType: CalendarUserType }) => {
         label={`Invite link for ${userType}`}
         variant="outlined"
         defaultValue={invite_link}
+        sx={{ minWidth: "90%" }}
       />
       <IconButton onClick={handleClick} color="primary">
         <LinkIcon />
       </IconButton>
       <Snackbar
-        message="Copied to clibboard"
+        message="Copied to clipboard"
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={2000}
         onClose={() => setOpen(false)}
@@ -74,7 +75,7 @@ const InviteModal = () => {
         Invite Link
       </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <Box>
+        <Box sx={style}>
           <InviteLink userType={CalendarUserType.parent} />
           <InviteLink userType={CalendarUserType.child} />
         </Box>
