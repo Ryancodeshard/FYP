@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { useSearchParams, redirect } from "next/navigation";
+import { useSearchParams, redirect, useRouter } from "next/navigation";
+import { CalendarUserType } from "@/app/interfaces/Calendar";
 import { User } from "@/app/interfaces/User";
 
 interface FormFields {
@@ -28,48 +29,76 @@ const style = {
   p: 4,
 };
 
+const fetch_user = async (email: string): Promise<User> => {
+  const res = await fetch("/api/user/get_by_email", {
+    method: "POST",
+    body: JSON.stringify(email),
+  });
+  return await res.json();
+};
+
 const create_new_user = async (email: string) => {
   await fetch("/api/user", {
     method: "POST",
+    body: JSON.stringify(email),
+  });
+};
+
+const fetch_user_or_create = async (email: string) => {
+  let cur_user = fetch_user(email);
+  if (!cur_user) {
+    create_new_user(email);
+    cur_user = fetch_user(email);
+  }
+};
+
+const add_new_calendar_user = async (
+  id: number,
+  user_type: string,
+  calendar_id: number
+) => {
+  await fetch("/api/calendar/new_user", {
+    method: "POST",
     body: JSON.stringify({
-      email: email,
+      user_type:
+        user_type === "parent"
+          ? CalendarUserType.parent
+          : CalendarUserType.child,
+      user_id: id,
+      calendar_id: calendar_id,
     }),
   });
 };
 
-const add_new_calendar_user = async (invite_code: string) => {
-  const response = await fetch("/api/user");
-  const user: User = await response.json();
-  const [calendar_id, user_type] = atob(invite_code).split("_");
-  await fetch("/api/calendar/new_user", {
-    method: "POST",
-    body: JSON.stringify({
-      user_type: user_type,
-      user_id: user.id,
-      calendar_id: calendar_id,
-    }),
-  });
-  redirect(`/calendar/${calendar_id}`);
+const invite_flow = async (
+  email: string,
+  invite_code: string | null,
+  push: any
+) => {
+  console.log("invite flow triggered");
+  await fetch_user_or_create(email);
+  if (!invite_code) return;
+  const [user_type, calendar_id] = invite_code
+    ? atob(invite_code).split("_")
+    : [];
+  const userData = await fetch_user(email);
+  if (userData)
+    add_new_calendar_user(Number(userData.id), user_type, Number(calendar_id));
+  push(`/calendar/${calendar_id}`);
 };
 
 const LoginModal = () => {
   const { data } = useSession();
   const [open, setOpen] = useState(false);
-
   const searchParams = useSearchParams();
+  const { push } = useRouter();
 
   const invite_code = searchParams.get("invite_code");
 
   useEffect(() => {
-    const user = fetch("/api/user");
-    if (data?.user?.email && !user) create_new_user(data.user.email);
-  }, [data]);
-
-  useEffect(() => {
-    if (!invite_code) return;
-    if (!data) setOpen(true);
-    else add_new_calendar_user(invite_code);
-  }, [data, invite_code]);
+    if (!data && invite_code) setOpen(true);
+    if (data?.user?.email) invite_flow(data.user.email, invite_code, push);
+  }, [data, invite_code, push]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -133,10 +162,14 @@ const LoginModal = () => {
         </>
       ) : (
         <>
-          <Typography sx={{ color: "black" }}>
+          <Typography sx={{ color: "white", padding: "10px" }}>
             Signed in as {data?.user?.name}
           </Typography>
-          <Button variant="outlined" onClick={() => signOut()}>
+          <Button
+            variant="outlined"
+            sx={{ color: "white", backgroundColor: "orange" }}
+            onClick={() => signOut()}
+          >
             Sign Out
           </Button>
         </>
